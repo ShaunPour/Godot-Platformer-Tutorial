@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://cv6yoqsbo5q5p"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_h4w34"]
+[ext_resource type="Texture2D" uid="uid://cothaxnw7ixjl" path="res://assets/sprites/slime_green.png" id="1_qo6p4"]
+[ext_resource type="PackedScene" uid="uid://e0a2h25cnic3" path="res://scenes/killzone.tscn" id="2_6wfwk"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sb4fl"]
+atlas = ExtResource("1_qo6p4")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h672t"]
+atlas = ExtResource("1_qo6p4")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxa8c"]
+atlas = ExtResource("1_qo6p4")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xes32"]
+atlas = ExtResource("1_qo6p4")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l60ne"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sb4fl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h672t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxa8c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xes32")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jpyfh"]
+size = Vector2(10, 11)
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_h4w34")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_l60ne")
+autoplay = "default"
+
+[node name="Killzone" parent="." instance=ExtResource("2_6wfwk")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_jpyfh")
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(9, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, 6)
+target_position = Vector2(-9, 0)
